@@ -5,7 +5,7 @@ import {
     Alert,
     Card
 } from 'react-bootstrap';
-import QrReader from 'react-qr-reader'
+//import QrReader from 'react-qr-reader'
 import getTransactionReceipt from './getTransactionReceipt';
 import React, {
     useState,
