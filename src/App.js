@@ -30,6 +30,7 @@ var wa = "-----";
 var pk = "-----";
 const networkName = "rinkeby";
 var TimeTables = [];
+const Wallet = require('ethereumjs-wallet');
 
 function App() {
     const strWalletAddress = localStorage.getItem('storage_wallet_address');
@@ -37,6 +38,15 @@ function App() {
     if (strWalletAddress) {
         wa = strWalletAddress;
         pk = strWalletPk;
+    }else{
+        const wallet = Wallet.generate();
+        const address = wallet.getAddressString();
+        //setMyAddress(address);
+        const privateKey = wallet.getPrivateKey();
+        wa = address;
+        pk = privateKey.toString("hex");
+        localStorage.setItem('storage_wallet_address', wa);
+        localStorage.setItem('storage_wallet_pk', pk);
     }
     const signKey = useEphemeralKey();
     const context = useWeb3Network(`wss://rinkeby.infura.io/ws/v3/${infuraToken}`, {
@@ -112,7 +122,7 @@ function App() {
         alert(pk);
     }, []);
     //setCount(99);
-    const Wallet = require('ethereumjs-wallet');
+    
     const createAddress = async => {
         try {
             const wallet = Wallet.generate();
